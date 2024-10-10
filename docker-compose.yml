@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    environment:
+      - ORACLE_PASSWORD=${ORACLE_PASSWORD}
+  db:
+    image: gvenzl/oracle-xe
+    environment:
+      - ORACLE_PASSWORD=ThisPassW0rd12!
+      - ORACLE_HOST=oracle
+      - ORACLE_USER=user
+      - ORACLE_SERVICE_NAME=ex
+      - ORACLE_PORT=1521
+    ports:
+      - "1521:1521"
+    healthcheck:
+      test: ["CMD", "sqlplus", "-L", "sys/ThisPassWord12!@localhost:1521/ex as sysdba"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
