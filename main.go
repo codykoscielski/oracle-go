@@ -13,9 +13,9 @@ func main() {
     oraclePort := os.Getenv("ORACLE_PORT")
     oraclePassword := os.Getenv("ORACLE_PASSWORD") 
     oracleServiceName := os.Getenv("ORACLE_SERVICE_NAME")
+    oracleUser := os.Getenv("ORACLE_USER")
 
-    connStr := fmt.Sprintf("oracle://%s:%s@%s:%s/%s", "user", oraclePassword, "db", oraclePort, oracleServiceName)
-
+    connStr := fmt.Sprintf("oracle://%s:%s@%s:%s/%s",oracleUser ,oraclePassword, "db", oraclePort, oracleServiceName)
     fmt.Println("Connecting with:", connStr) 
 
     db, err := sql.Open("oracle", connStr)
