@@ -1,8 +1,8 @@
 package main
 
 import (
-    "fmt"
     "database/sql"
+    "fmt"
     "log"
     "os"
 
@@ -10,14 +10,15 @@ import (
 )
 
 func main() {
-    oracleHost := os.Getenv("ORACLE_HOST")
     oraclePort := os.Getenv("ORACLE_PORT")
-    oraclePassword := os.Getenv("ORACLE_PWD")
+    oraclePassword := os.Getenv("ORACLE_PASSWORD") 
     oracleServiceName := os.Getenv("ORACLE_SERVICE_NAME")
-    fmt.Println(oraclePassword)
 
-    connStr := fmt.Sprintf("oracle://%s:%s@%s:%s/%s", "user", oraclePassword, oracleHost, oraclePort, oracleServiceName)
-     db, err := sql.Open("oracle", connStr)
+    connStr := fmt.Sprintf("oracle://%s:%s@%s:%s/%s", "user", oraclePassword, "db", oraclePort, oracleServiceName)
+
+    fmt.Println("Connecting with:", connStr) 
+
+    db, err := sql.Open("oracle", connStr)
     if err != nil {
         log.Fatal(err)
     }
@@ -25,8 +26,8 @@ func main() {
 
     err = db.Ping()
     if err != nil {
-        fmt.Println("Connection connecting:", err)
+        fmt.Println("Connection error:", err)
     } else {
-        fmt.Println("CONNECTED!")
+        fmt.Println("CONNECTED! Damn, you good")
     }
 }

@@ -7,10 +7,11 @@ RUN go mod download
 
 COPY . .
 
-RUN go get github.com/sijms/go-ora/v2
-RUN go build -o main .
+RUN go mod tidy
 
-FROM gvenzl/oracle-xe
+RUN CGO_ENABLED=0 go build -o main .
+
+FROM scratch
 
 WORKDIR /app
 
@@ -18,4 +19,4 @@ COPY --from=builder /app/main .
 
 EXPOSE 8080
 
-CMD ["./main"]
+CMD ["/app/main"]
