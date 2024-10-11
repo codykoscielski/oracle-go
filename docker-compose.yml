@@ -20,6 +20,6 @@ services:
       - ORACLE_PASSWORD=ThisPassW0rd12!
     healthcheck:
       test: ["CMD", "healthcheck.sh"]
-      interval: 10s   
-      timeout: 5s   
+      interval: 30s   
+      timeout: 30s   
       retries: 5
